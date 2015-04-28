@@ -1,5 +1,6 @@
 package com.mvcspringer.mvc.controller;
 
+import com.mvcspringer.mvc.domain.model.Product;
 import com.mvcspringer.mvc.domain.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,8 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by xirconias on 28/04/15.
@@ -53,6 +53,26 @@ public class ProductController {
     public	String	getProductById(@RequestParam("id")	String	productId,Model	model)	{
         model.addAttribute("product",productService.getProductById(productId));
         return	"product";
+    }
+
+
+    @RequestMapping("/{category}/{price}")
+    public String filterProducts(Model model,
+                                 @PathVariable("category") String category,
+                                 @MatrixVariable(pathVar = "price") Map<String,List<String>> filterParams,
+                                 @RequestParam("manufacturer") String manufacturer){
+
+        Set<Product> products =new HashSet<>();
+        Set price = productService.getProductsByPriceFilter(filterParams);
+        List cat = productService.getProductsByCategory(category);
+        List man = productService.getProductsByManufacturer(manufacturer);
+
+        products = price;
+        products.retainAll(cat);
+        products.retainAll(man);
+
+        model.addAttribute("products",products);
+        return "products";
     }
 
 
