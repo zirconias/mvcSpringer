@@ -99,6 +99,11 @@ public class InMemoryProductRepository implements ProductRepository {
     }
 
     @Override
+    public void addProduct(Product product) {
+        listOfProducts.add(product);
+    }
+
+    @Override
     public List<Product> getProductsByManufacturer(String manufacturer) {
         List<Product> productsByManufacturer= new ArrayList<Product>();
         for(Product product : listOfProducts){

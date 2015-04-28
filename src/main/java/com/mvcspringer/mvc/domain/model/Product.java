@@ -16,6 +16,7 @@ public class Product {
     private long unitsInStock;
     private long unitsInOrder;
     private boolean discontinued;
+    private String condition;
 
     public Product() {
         super();
@@ -27,6 +28,13 @@ public class Product {
         this.unitPrice = unitPrice;
     }
 
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
 
     public String getProductId() {
         return productId;
