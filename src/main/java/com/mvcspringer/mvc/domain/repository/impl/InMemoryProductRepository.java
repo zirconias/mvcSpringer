@@ -5,8 +5,7 @@ import com.mvcspringer.mvc.domain.repository.ProductRepository;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by xirconias on 28/04/15.
@@ -61,6 +60,42 @@ public class InMemoryProductRepository implements ProductRepository {
         }
 
         return productById;
+    }
+
+    public List<Product> getProductsByCategory(String category) {
+        List<Product> productsByCategory = new ArrayList<Product>();
+        for (Product product : listOfProducts) {
+            if (category.equalsIgnoreCase(product.getCategory())) {
+                productsByCategory.add(product);
+            }
+        }
+        return productsByCategory;
+    }
+
+    public Set<Product> getProductsByFilter(Map<String, List<String>> filterParams) {
+        Set<Product> productsByBrand = new HashSet<Product>();
+        Set<Product> productsByCategory = new HashSet<Product>();
+        Set<String> criterias = filterParams.keySet();
+
+        if (criterias.contains("brand")) {
+            for (String brandName : filterParams.get("brand")) {
+                for (Product product : listOfProducts) {
+                    if (brandName.equalsIgnoreCase(product.getManufacturer())) {
+                        productsByBrand.add(product);
+                    }
+                }
+            }
+        }
+        if (criterias.contains("category")) {
+            for (String category : filterParams.get("category")) {
+
+                productsByCategory.addAll(this.getProductsByCategory(category));
+            }
+        }
+
+        productsByCategory.retainAll(productsByBrand);
+
+        return productsByCategory;
     }
 
 }
