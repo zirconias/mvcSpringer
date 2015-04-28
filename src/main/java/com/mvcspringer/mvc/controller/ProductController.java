@@ -1,6 +1,7 @@
 package com.mvcspringer.mvc.controller;
 
 import com.mvcspringer.mvc.domain.repository.ProductRepository;
+import com.mvcspringer.mvc.domain.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ProductController {
 
     @Autowired
-    private ProductRepository productRepository;
+    private ProductService productService;
 
 
     @RequestMapping("/products")
     public String list(Model model) {
-        model.addAttribute("products",	productRepository.getAllProducts());
+        model.addAttribute("products",	productService.getAllProducts());
         return	"products";
     }
 }
