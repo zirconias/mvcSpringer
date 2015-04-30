@@ -1,6 +1,7 @@
 package com.mvcspringer.mvc.controller;
 
 import com.mvcspringer.mvc.domain.model.Product;
+import com.mvcspringer.mvc.domain.service.CustomerService;
 import com.mvcspringer.mvc.domain.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,6 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
-
 
     @RequestMapping
     public String list(Model model) {
@@ -54,7 +54,6 @@ public class ProductController {
         model.addAttribute("product",productService.getProductById(productId));
         return	"product";
     }
-
 
     @RequestMapping("/{category}/{price}")
     public String filterProducts(Model model,

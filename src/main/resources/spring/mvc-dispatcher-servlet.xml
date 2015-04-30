@@ -15,10 +15,17 @@ http://www.springframework.org/schema/util/spring-util-3.2.xsd
     <context:component-scan base-package="com.mvcspringer.mvc"/>
 
     <mvc:annotation-driven	enableMatrixVariables="true"/>
+    
+    <!--mvc:resources mapping="/resource/**" location="WEB-INF/islam/"/-->
+    <mvc:resources mapping="/resource/**" location="WEB-INF/resources/"/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/pages/"/>
         <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="messages"/>
     </bean>
 
 </beans>

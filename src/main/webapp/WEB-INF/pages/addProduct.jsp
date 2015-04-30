@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -11,6 +10,7 @@
 <body>
 <section>
     <div class="jumbotron">
+        <a href="<c:url	value="/j_spring_security_logout"/>" class="btn	btn-danger btn-mini pull-right">logout</a>
         <div class="container">
             <h1>Products</h1>
             <p>Add products</p>
@@ -19,19 +19,14 @@
 </section>
 <section class="container">
 
-    <!-- we assigned the value newProduct (we create in Product controller) as the value of modelAttribute -->
-    <!--  the newProduct object that we attached to the model in the product controller method (getAddNewProductForm) is now bound
-    to the form. This object is called the form-backing bean in Spring MVC. -->
-
     <form:form  modelAttribute="newProduct" class="form-horizontal">
         <fieldset>
             <legend>Add new product</legend>
 
             <div class="form-group">
-                <label class="control-label col-lg-2 col-lg-2" for="productId">product id
+                <label class="control-label col-lg-2 col-lg-2" for="productId">
+                    <spring:message	code="addProduct.form.productId.label"/>
                 </label>
-
-                <!-- p106 this was above - now Externalizing these texts from a view <label class="control-label col-lg-2 col-lg-2" for="productId">Product Id</label>  </label> -->
 
                 <div class="col-lg-10">
                     <form:input id="productId" path="productId" type="text" class="form:input-large"/>
